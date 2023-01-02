@@ -1,0 +1,18 @@
+#Welcome to the config
+
+#Key on https://minecraftpocket-servers.com/
+vote-key: "your_key"
+
+command-description: "Support server !"
+
+you-must-vote: "You didn't vote today! §oTo vote -> https://minecraftpocket-servers.com/server/120310/"
+already-vote: "You have already voted today!"
+broadcast-vote: "Thanks to §e{player} §fwho just voted for the server! Do you also want to receive a daily reward? Vote now for server on §8-> §7https://minecraftpocket-servers.com/server/120310/"
+
+Loot:
+    #Id, Meta, Count (or) Id, Meta, Count, Enchantment Name, Enchantment Level
+    Item:
+      - "276, 0, 1" #No Enchant
+      - "283, 0, 1, sharpness, 5" #With Enchant Sharpness
+    Command:
+      - "give {player} diamond_sword"
