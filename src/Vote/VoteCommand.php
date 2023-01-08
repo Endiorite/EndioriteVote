@@ -27,7 +27,7 @@ class VoteCommand extends Command
             $senderName = $sender->getName();
 
             $voteAsync = new VoteAsync(function (VoteAsync $a) use ($key, $senderName){
-                $get = Internet::getURL("https://minecraftpocket-servers.com/api/?object=votes&element=claim&key=" . $key . "&username=" . str_replace(" ", "%20", $senderName));
+                $get = Internet::getURL("https://minecraftpocket-servers.com/api/?object=votes&element=claim&key=" . $key . "&username=" . $senderName);
                 $a->setResult($get->getBody());
             }, function (VoteAsync $a) use ($senderName, $key){
                 if ($p = Server::getInstance()->getPlayerExact($senderName)){
@@ -38,19 +38,12 @@ class VoteCommand extends Command
 
                         case "1":
                             $v = new VoteAsync(function (VoteAsync $a) use ($key, $senderName){
-                                $get = Internet::getURL("https://minecraftpocket-servers.com/api/?action=post&object=votes&element=claim&key=" . $key . "&username=". str_replace(" ", "%20", $senderName));
+                                $get = Internet::getURL("https://minecraftpocket-servers.com/api/?action=post&object=votes&element=claim&key=" . $key . "&username=". $senderName);
                                 $a->setResult($get->getBody());
                             }, function (VoteAsync $a) use ($senderName){
                                 if ($p = Server::getInstance()->getPlayerExact($senderName)) {
-                                    if ($a->getResult() === "0") {
-                                        Main::getInstance()->loot($p);
-                                        $p->getServer()->broadcastMessage(str_replace("{player}", $senderName, Main::getInstance()->getConfig()->get("broadcast-vote")));
-                                        return;
-                                    }
-
-                                    if ($a->getResult() === "1") {
-                                        $p->sendMessage(Main::getInstance()->getConfig()->get("already-vote"));
-                                    }
+                                    Main::getInstance()->loot($p);
+                                    $p->getServer()->broadcastMessage(str_replace("{player}", $senderName, Main::getInstance()->getConfig()->get("broadcast-vote")));
                                 }
                             });
 
